@@ -50,7 +50,7 @@ public class BookDAO {
     }
 
     public Optional<Person> getBookOwner(int id) {
-        return jdbcTemplate.query("SELECT Person.* FROM Person JOIN Book ON Person.id = Book.person_id;", new Object[]{id},
+        return jdbcTemplate.query("SELECT Person.* FROM Person JOIN Book ON Person.id = Book.person_id"+" where Book.id=?", new Object[]{id},
                 new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
     }
 }

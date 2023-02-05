@@ -83,12 +83,12 @@ public class BooksController {
     @PatchMapping("/{id}/release")
     public String release(@PathVariable("id") int id) {
         bookDAO.release(id);
-        return "redirect:/books" + id;
+        return "redirect:/books/" + id;
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{id}/assign")
     public String assign(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
         bookDAO.assign(id, person);
-        return "redirect:/books";
+        return "redirect:/books/"+id;
     }
 }
