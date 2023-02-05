@@ -18,8 +18,7 @@ public class Book {
 
     }
 
-    public Book(int id, String name, String author, int year_of_production) {
-        this.id = id;
+    public Book(String name, String author, int year_of_production) {
         this.name = name;
         this.author = author;
         this.year_of_production = year_of_production;
@@ -56,4 +55,5 @@ public class Book {
     public void setYear_of_production(int year_of_production) {
         this.year_of_production = year_of_production;
     }
+
 }

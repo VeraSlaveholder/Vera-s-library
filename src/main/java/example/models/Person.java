@@ -13,8 +13,8 @@ public class Person {
     public Person() {
 
     }
-    public Person(int id, String name, int birth_year) {
-        this.id = id;
+
+    public Person(String name, int birth_year) {
         this.name = name;
         this.birth_year = birth_year;
     }
