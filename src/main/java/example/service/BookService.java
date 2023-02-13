@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookService {
-    public List<Book> index();
+    public List<Book> allBooks();
 
     public Book show(int id);
 
@@ -18,9 +18,9 @@ public interface BookService {
 
     public void delete(int id);
 
-    public void release(int id);
+    public void releasePersonFromBook(int id);
 
-    public void assign(int id, Person selectedPerson);
+    public void assignBookToPerson(int id, Person selectedPerson);
 
     public Optional<Person> getBookOwner(int id);
 }

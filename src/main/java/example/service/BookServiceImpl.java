@@ -15,8 +15,8 @@ public class BookServiceImpl implements BookService {
     private BookDAO bookDAO;
 
     @Override
-    public List<Book> index() {
-        List<Book> bookList = bookDAO.index();
+    public List<Book> allBooks() {
+        List<Book> bookList = bookDAO.allBooks();
         return bookList;
     }
 
@@ -42,13 +42,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void release(int id) {
-        bookDAO.release(id);
+    public void releasePersonFromBook(int id) {
+        bookDAO.releasePersonFromBook(id);
     }
 
     @Override
-    public void assign(int id, Person selectedPerson) {
-        bookDAO.assign(id, selectedPerson);
+    public void assignBookToPerson(int id, Person selectedPerson) {
+        bookDAO.assignBookToPerson(id, selectedPerson);
     }
 
     @Override

@@ -14,8 +14,8 @@ public class PersonServiceImpl implements PersonService {
     @Autowired
     private PersonDAO personDAO;
 
-    public List<Person> index() {
-        List<Person> personList = personDAO.index();
+    public List<Person> allPeople() {
+        List<Person> personList = personDAO.allPeople();
         return personList;
     }
 

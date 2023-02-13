@@ -26,9 +26,9 @@ public class BooksController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("books", bookServiceImpl.index());
-        return "books/index";
+    public String allBooks(Model model) {
+        model.addAttribute("books", bookServiceImpl.allBooks());
+        return "books/allBooks";
     }
 
     @GetMapping("/{id}")
@@ -39,7 +39,7 @@ public class BooksController {
         if (bookOwner.isPresent()) {
             model.addAttribute("owner", bookOwner.get());
         } else {
-            model.addAttribute("people", personServiceImpl.index());
+            model.addAttribute("people", personServiceImpl.allPeople());
         }
         return "books/show";
     }
@@ -79,15 +79,15 @@ public class BooksController {
         return "redirect:/books";
     }
 
-    @PatchMapping("/{id}/release")
-    public String release(@PathVariable("id") int id) {
-        bookServiceImpl.release(id);
+    @PatchMapping("/{id}/releasePersonFromBook")
+    public String releasePersonFromBook(@PathVariable("id") int id) {
+        bookServiceImpl.releasePersonFromBook(id);
         return "redirect:/books/" + id;
     }
 
-    @PatchMapping("/{id}/assign")
-    public String assign(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
-        bookServiceImpl.assign(id, person);
+    @PatchMapping("/{id}/assignBookToPerson")
+    public String assignBookToPerson(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
+        bookServiceImpl.assignBookToPerson(id, person);
         return "redirect:/books/" + id;
     }
 }

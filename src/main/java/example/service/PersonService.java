@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PersonService {
-    List<Person> index();
+    List<Person> allPeople();
 
     Person show(int id);
 

@@ -23,9 +23,9 @@ public class PeopleController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("people", personServiceImpl.index());
-        return "people/index";
+    public String allPeople(Model model) {
+        model.addAttribute("people", personServiceImpl.allPeople());
+        return "people/allPeople";
     }
 
     @GetMapping("/{id}")
