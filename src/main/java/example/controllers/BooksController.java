@@ -2,7 +2,9 @@ package example.controllers;
 
 import example.models.Book;
 import example.models.Person;
+import example.service.BookService;
 import example.service.BookServiceImpl;
+import example.service.PersonService;
 import example.service.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,30 +18,25 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/books")
 public class BooksController {
-    private final PersonServiceImpl personServiceImpl;
-    private final BookServiceImpl bookServiceImpl;
+    private final PersonService personService=new PersonServiceImpl();
+    private final BookService bookService=new BookServiceImpl();
 
-    @Autowired
-    public BooksController(BookServiceImpl bookServiceImpl, PersonServiceImpl personServiceImpl) {
-        this.bookServiceImpl = bookServiceImpl;
-        this.personServiceImpl = personServiceImpl;
-    }
 
     @GetMapping()
     public String allBooks(Model model) {
-        model.addAttribute("books", bookServiceImpl.allBooks());
+        model.addAttribute("books", bookService.allBooks());
         return "books/allBooks";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("book", bookServiceImpl.show(id));
+        model.addAttribute("book", bookService.show(id));
 
-        Optional<Person> bookOwner = bookServiceImpl.getBookOwner(id);
+        Optional<Person> bookOwner = bookService.getBookOwner(id);
         if (bookOwner.isPresent()) {
             model.addAttribute("owner", bookOwner.get());
         } else {
-            model.addAttribute("people", personServiceImpl.allPeople());
+            model.addAttribute("people", personService.allPeople());
         }
         return "books/show";
     }
@@ -54,13 +51,13 @@ public class BooksController {
     public String create(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "books/new";
-        bookServiceImpl.save(book);
+        bookService.save(book);
         return "redirect:/books";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("book", bookServiceImpl.show(id));
+        model.addAttribute("book", bookService.show(id));
         return "books/edit";
     }
 
@@ -69,25 +66,25 @@ public class BooksController {
                          @PathVariable("id") int id) {
         if (bindingResult.hasErrors())
             return "books/edit";
-        bookServiceImpl.update(id, book);
+        bookService.update(id, book);
         return "redirect:/books";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        bookServiceImpl.delete(id);
+        bookService.delete(id);
         return "redirect:/books";
     }
 
     @PatchMapping("/{id}/releasePersonFromBook")
     public String releasePersonFromBook(@PathVariable("id") int id) {
-        bookServiceImpl.releasePersonFromBook(id);
+        bookService.releasePersonFromBook(id);
         return "redirect:/books/" + id;
     }
 
     @PatchMapping("/{id}/assignBookToPerson")
     public String assignBookToPerson(@PathVariable("id") int id, @ModelAttribute("person") Person person) {
-        bookServiceImpl.assignBookToPerson(id, person);
+        bookService.assignBookToPerson(id, person);
         return "redirect:/books/" + id;
     }
 }
