@@ -2,7 +2,6 @@ package example.controllers;
 
 import example.models.Person;
 import example.service.PersonService;
-import example.service.PersonServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,12 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
-    private final PersonService personService=new PersonServiceImpl();
+    private final PersonService personService;
+
+    @Autowired
+    public PeopleController(PersonService personService) {
+        this.personService = personService;
+    }
 
     @GetMapping()
     public String allPeople(Model model) {

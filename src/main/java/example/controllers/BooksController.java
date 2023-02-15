@@ -18,9 +18,15 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/books")
 public class BooksController {
-    private final PersonService personService=new PersonServiceImpl();
-    private final BookService bookService=new BookServiceImpl();
 
+
+    private final PersonService personService;
+    private final BookService bookService;
+    @Autowired
+    public BooksController(PersonService personService, BookService bookService) {
+        this.personService = personService;
+        this.bookService = bookService;
+    }
 
     @GetMapping()
     public String allBooks(Model model) {
